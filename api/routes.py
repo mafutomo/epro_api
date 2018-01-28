@@ -43,12 +43,10 @@ def register():
 		dob = post_data.get('dob'),
 		first_day = post_data.get('first_day'),
 		cycle_length = post_data.get('cycle_length'),
-		condom = post_data.get('condom'),
-		copper = post_data.get('copper'),
-		mirena = post_data.get('mirena'),
-		pill = post_data.get('pill'),
-		mini_pill = post_data.get('mini_pill'),
-		other = post_data.get('other')
+		non_hormonal = post_data.get('non_hormonal'),
+		triphasic = post_data.get('triphasic'),
+		monophasic = post_data.get('monophasic'),
+		progestin = post_data.get('progestin')
 	)
 	db.session.add(user)
 	db.session.commit()
@@ -103,7 +101,6 @@ def get_auth():
 				'data': {
 					'user_id': user.id,
 					'email': user.email,
-					'admin': user.admin,
 					'registered_on': user.registered_on
 				}
 			}

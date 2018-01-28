@@ -19,7 +19,7 @@ class Users(db.Model):
     progestin = db.Column(db.Boolean, nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
 
-    def __init__(self, first_name, last_name, email, password, dob, first_day, cycle_length, condom, copper, mirena, pill, mini_pill, other):
+    def __init__(self, first_name, last_name, email, password, dob, first_day, cycle_length, non_hormonal, triphasic, monophasic, progestin):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
