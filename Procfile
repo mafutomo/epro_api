@@ -1,2 +1,2 @@
-web: gunicorn app:api
+web: gunicorn app:app
 release: python api/__init__.py db upgrade
