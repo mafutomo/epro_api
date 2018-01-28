@@ -1,6 +1,7 @@
 # E/PRO Backend API
 
-- Setup for running locally
+- Setup for running on localhost:5000
+
 ```bash
 $ python3 -m venv venv
 $ source venv/bin/activate
