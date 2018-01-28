@@ -31,13 +31,30 @@ class Users(db.Model):
         self.dob = dob
         self.first_day = first_day
         self.cycle_length = cycle_length
-        self. condom = condom
+        self.condom = condom
         self.copper = copper
         self.mirena = mirena
         self.pill = pill
         self.mini_pill = mini_pill
         self.other = other
         self.registered_on = datetime.datetime.now()
+
+    def serialize(self):
+        return {
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email': self.email,
+            'password': self.password,
+            'dob': self.dob,
+            'first_day': self.first_day,
+            'cycle_length': self.cycle_length,
+            'condom': self.condom,
+            'copper': self.copper,
+            'mirena': self.mirena,
+            'pill': self.pill,
+            'mini_pill': self.mini_pill,
+            'other': self.other
+        }
 
     def encode_auth_token(self, user_id):
         try:
@@ -87,10 +104,30 @@ class Hormones(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     est = db.Column(db.Integer, nullable=False)
-    test = db.Column(db.Integer, nullable=False)
     prog = db.Column(db.Integer, nullable=False)
 
     def __init__(self, est, test, prog):
         self.est = est
-        self.test = test
         self.prog = prog
+
+class BlacklistToken(db.Model):
+    __tablename__ = 'blacklist_tokens'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    token = db.Column(db.String(500), unique=True, nullable=False)
+    blacklisted_on = db.Column(db.DateTime, nullable=False)
+
+    def __init__(self, token):
+        self.token = token
+        self.blacklisted_on = datetime.datetime.now()
+
+    def __repr__(self):
+        return '<id: token: {}'.format(self.token)
+
+    @staticmethod
+    def check_blacklist(auth_token):
+        res = BlacklistToken.query.filter_by(token=str(auth_token)).first()
+        if res:
+            return True
+        else:
+            return False
