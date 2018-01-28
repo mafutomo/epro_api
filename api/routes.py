@@ -5,7 +5,7 @@ from api import app, db, bcrypt
 
 @app.route('/')
 def index():
-	return "EPRO BACKEND"
+	return "E/PRO BACKEND"
 
 @app.route('/users/all', methods=['GET'])
 def get_users():
