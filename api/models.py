@@ -13,12 +13,10 @@ class Users(db.Model):
     dob = db.Column(db.String(32), nullable=False)
     first_day = db.Column(db.Integer, nullable=False, default=1)
     cycle_length = db.Column(db.Integer, nullable=False, default=30)
-    condom = db.Column(db.Boolean, nullable=False)
-    copper = db.Column(db.Boolean, nullable=False)
-    mirena = db.Column(db.Boolean, nullable=False)
-    pill = db.Column(db.Boolean, nullable=False)
-    mini_pill = db.Column(db.Boolean, nullable=False)
-    other = db.Column(db.Boolean, nullable=False)
+    non_hormonal = db.Column(db.Boolean, nullable=False)
+    triphasic = db.Column(db.Boolean, nullable=False)
+    monophasic = db.Column(db.Boolean, nullable=False)
+    progestin = db.Column(db.Boolean, nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
 
     def __init__(self, first_name, last_name, email, password, dob, first_day, cycle_length, condom, copper, mirena, pill, mini_pill, other):
@@ -31,12 +29,10 @@ class Users(db.Model):
         self.dob = dob
         self.first_day = first_day
         self.cycle_length = cycle_length
-        self.condom = condom
-        self.copper = copper
-        self.mirena = mirena
-        self.pill = pill
-        self.mini_pill = mini_pill
-        self.other = other
+        self.non_hormonal = non_hormonal
+        self.triphasic = triphasic
+        self.monophasic = monophasic
+        self.progestin = progestin
         self.registered_on = datetime.datetime.now()
 
     def serialize(self):
@@ -48,12 +44,10 @@ class Users(db.Model):
             'dob': self.dob,
             'first_day': self.first_day,
             'cycle_length': self.cycle_length,
-            'condom': self.condom,
-            'copper': self.copper,
-            'mirena': self.mirena,
-            'pill': self.pill,
-            'mini_pill': self.mini_pill,
-            'other': self.other
+            'non_hormonal': self.non_hormonal,
+            'triphasic': self.triphasic,
+            'monophasic': self.monophasic,
+            'progestin': self.progestin
         }
 
     def encode_auth_token(self, user_id):
