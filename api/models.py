@@ -106,9 +106,15 @@ class Hormones(db.Model):
     est = db.Column(db.Integer, nullable=False)
     prog = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, est, test, prog):
+    def __init__(self, est, prog):
         self.est = est
         self.prog = prog
+
+    def serialize(self):
+        return {
+            'est': self.est,
+            'prog': self.prog
+        }
 
 class BlacklistToken(db.Model):
     __tablename__ = 'blacklist_tokens'

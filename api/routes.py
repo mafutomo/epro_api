@@ -1,5 +1,5 @@
 from flask import request, make_response, jsonify, abort
-from api.models import Users
+from api.models import Users, Hormones, BlacklistToken, Exercises
 from api import app, db, bcrypt
 
 
@@ -7,10 +7,10 @@ from api import app, db, bcrypt
 def index():
 	return "EPRO BACKEND"
 
-@app.route('/users', methods=['GET'])
+@app.route('/users/all', methods=['GET'])
 def get_users():
-	users = Users.qeury.get()
-	return jsonify(Users.serialize(users[0]))
+	users = Users.query.order_by(Users.id).all()
+	return jsonify({'users': [Users.serialize(user) for user in users]})
 
 @app.route('/users/<int:id>', methods=['GET'])
 def get_user(id):
@@ -19,7 +19,7 @@ def get_user(id):
 		abort(400)
 	return jsonify(Users.serialize(user))
 
-@app.route('/users/', methods=['POST'])
+@app.route('/users/register', methods=['POST'])
 def register():
 	post_data = request.get_json()
 
@@ -144,5 +144,14 @@ def logout():
 		}
 		return jsonify(responseObject), 403
 
-# @app.route('/users/<int:id>', methods=['PATCH'])
-# @app.route('/users/<int:id>', methods=['DELETE'])
+@app.route('/hormones/all', methods=['GET'])
+def get_hormones():
+	horms = Hormones.query.order_by(Hormones.id).all()
+	return jsonify({'hormones': [Hormones.serialize(horm) for horm in horms]})
+
+@app.route('/hormones/<int:id>', methods=['GET'])
+def get_hormone(id):
+	horm = Hormones.query.get(id)
+	if not horm:
+		abort(400)
+	return jsonify(Hormones.serialize(horm))
