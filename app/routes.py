@@ -1,6 +1,6 @@
 from flask import request, make_response, jsonify, abort
-from api.models import Users, Hormones, BlacklistToken, Exercises
-from api import app, db, bcrypt
+from app.models import Users, Hormones, BlacklistToken, Exercises
+from app import app, db, bcrypt
 
 
 @app.route('/')

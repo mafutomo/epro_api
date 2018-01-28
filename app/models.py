@@ -1,5 +1,5 @@
 import datetime
-from api import app, db, bcrypt
+from app import app, db, bcrypt
 import jwt
 
 class Users(db.Model):

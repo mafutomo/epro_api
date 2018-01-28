@@ -13,4 +13,4 @@ migrate = Migrate(app, db)
 bcrypt = Bcrypt(app)
 
 
-from api import routes, models
+from app import routes, models
