@@ -10,23 +10,23 @@ class Users(db.Model):
     last_name = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
-    dob = db.Column(db.String(32), nullable=False)
-    first_day = db.Column(db.Integer, nullable=False, default=1)
-    cycle_length = db.Column(db.Integer, nullable=False, default=30)
+    age = db.Column(db.Integer, nullable=False)
+    first_day = db.Column(db.String, nullable=False)
+    cycle_length = db.Column(db.Integer, nullable=False, default=28)
     non_hormonal = db.Column(db.Boolean, nullable=False)
     triphasic = db.Column(db.Boolean, nullable=False)
     monophasic = db.Column(db.Boolean, nullable=False)
     progestin = db.Column(db.Boolean, nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
 
-    def __init__(self, first_name, last_name, email, password, dob, first_day, cycle_length, non_hormonal, triphasic, monophasic, progestin):
+    def __init__(self, first_name, last_name, email, password, age, first_day, cycle_length, non_hormonal, triphasic, monophasic, progestin):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.password = bcrypt.generate_password_hash(
             password, app.config.get('BCRYPT_LOG_ROUNDS')
         ).decode()
-        self.dob = dob
+        self.age = age
         self.first_day = first_day
         self.cycle_length = cycle_length
         self.non_hormonal = non_hormonal
@@ -41,7 +41,7 @@ class Users(db.Model):
             'last_name': self.last_name,
             'email': self.email,
             'password': self.password,
-            'dob': self.dob,
+            'age': self.age,
             'first_day': self.first_day,
             'cycle_length': self.cycle_length,
             'non_hormonal': self.non_hormonal,
@@ -80,21 +80,72 @@ class Users(db.Model):
         except jwt.InvalidTokenError:
             return 'Invalid token. Please log in again.'
             
-class Exercises(db.Model):
-    __tablename__ = "exercises"
+class Tips(db.Model):
+    __tablename__ = "tips"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(255), nullable=False)
-    exercise = db.Column(db.String(255), nullable=False)
+    category = db.Column(db.String(255), nullable=False)
+    exercise_decription = db.Column(db.String(255), nullable=False)
+    nutrition_info = db.Column(db.String(255), nullable=False)
 
-    def __init__(self, name, description, exercise):
-        self.name = name
-        self.description = description
-        self.exercise = exercise
+    def __init__(self, category, exercise_decription, nutrition_info):
+        self.category = category
+        self.exercise_decription = exercise_decription
+        self.nutrition_info = nutrition_info
 
-class Hormones(db.Model):
-    __tablename__ = "hormones"
+class Non_Hormonal_Hormones(db.Model):
+    __tablename__ = "non_hormonal_hormones"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    est = db.Column(db.Integer, nullable=False)
+    prog = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, est, prog):
+        self.est = est
+        self.prog = prog
+
+    def serialize(self):
+        return {
+            'est': self.est,
+            'prog': self.prog
+        }
+
+class Triphasic_Hormones(db.Model):
+    __tablename__ = "triphasic_hormones"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    est = db.Column(db.Integer, nullable=False)
+    prog = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, est, prog):
+        self.est = est
+        self.prog = prog
+
+    def serialize(self):
+        return {
+            'est': self.est,
+            'prog': self.prog
+        }
+
+class Monophasic_Hormones(db.Model):
+    __tablename__ = "monophasic_hormones"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    est = db.Column(db.Integer, nullable=False)
+    prog = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, est, prog):
+        self.est = est
+        self.prog = prog
+
+    def serialize(self):
+        return {
+            'est': self.est,
+            'prog': self.prog
+        }
+
+class Progestin_Hormones(db.Model):
+    __tablename__ = "progestin_hormones"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     est = db.Column(db.Integer, nullable=False)

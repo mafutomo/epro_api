@@ -1,5 +1,5 @@
 from flask import request, make_response, jsonify, abort
-from app.models import Users, Hormones, BlacklistToken, Exercises
+from app.models import Users, Tips, Non_Hormonal_Hormones, Triphasic_Hormones, Monophasic_Hormones, BlacklistToken
 from app import app, db, bcrypt
 
 
@@ -7,10 +7,12 @@ from app import app, db, bcrypt
 def index():
 	return "E/PRO BACKEND"
 
+# USER ROUTES
+
 @app.route('/users/all', methods=['GET'])
 def get_users():
 	users = Users.query.order_by(Users.id).all()
-	return jsonify({'users': [Users.serialize(user) for user in users]})
+	return jsonify({'data': [Users.serialize(user) for user in users]})
 
 @app.route('/users/<int:id>', methods=['GET'])
 def get_user(id):
@@ -18,6 +20,26 @@ def get_user(id):
 	if not user:
 		abort(400)
 	return jsonify(Users.serialize(user))
+
+@app.route('/users/non_hormonal', methods=['GET'])
+def get_non():
+	users = Users.query.filter_by(non_hormonal=True).all()
+	return jsonify({'data': [Users.serialize(user) for user in users]})
+
+@app.route('/users/triphasic', methods=['GET'])
+def get_tri():
+	users = Users.query.filter_by(triphasic=True).all()
+	return jsonify({'data': [Users.serialize(user) for user in users]})
+
+@app.route('/users/monophasic', methods=['GET'])
+def get_mono():
+	users = Users.query.filter_by(monophasic=True).all()
+	return jsonify({'data': [Users.serialize(user) for user in users]})
+
+@app.route('/users/progestin', methods=['GET'])
+def get_prog():
+	users = Users.query.filter_by(progestin=True).all()
+	return jsonify({'data': [Users.serialize(user) for user in users]})
 
 @app.route('/users/register', methods=['POST'])
 def register():
@@ -40,7 +62,7 @@ def register():
 		last_name = post_data.get('last_name'),
 		email = post_data.get('email'),
 		password = post_data.get('password'),
-		dob = post_data.get('dob'),
+		age = post_data.get('age'),
 		first_day = post_data.get('first_day'),
 		cycle_length = post_data.get('cycle_length'),
 		non_hormonal = post_data.get('non_hormonal'),
@@ -58,6 +80,8 @@ def register():
 		'auth_token': auth_token.decode()
 	}
 	return jsonify(responseObject), 201
+
+# AUTH ROUTES
 
 @app.route('/auth/login', methods=['POST'])
 def user_login():
@@ -141,14 +165,26 @@ def logout():
 		}
 		return jsonify(responseObject), 403
 
-@app.route('/hormones/all', methods=['GET'])
-def get_hormones():
-	horms = Hormones.query.order_by(Hormones.id).all()
-	return jsonify({'hormones': [Hormones.serialize(horm) for horm in horms]})
+# HORMONE DATA ROUTES
 
-@app.route('/hormones/<int:id>', methods=['GET'])
-def get_hormone(id):
-	horm = Hormones.query.get(id)
-	if not horm:
-		abort(400)
-	return jsonify(Hormones.serialize(horm))
+@app.route('/hormones/non_hormonal', methods=['GET'])
+def get_non_hormonal():
+	horms = Non_Hormonal_Hormones.query.order_by(Non_Hormonal_Hormones.id).all()
+	
+	return jsonify({'data': [Non_Hormonal_Hormones.serialize(horm) for horm in horms]})
+
+@app.route('/hormones/triphasic', methods=['GET'])
+def get_tri_hormones():
+	horms = Triphasic_Hormones.query.order_by(Triphasic_Hormones.id).all()
+	return jsonify({'data': [Triphasic_Hormones.serialize(horm) for horm in horms]})
+
+@app.route('/hormones/monophasic', methods=['GET'])
+def get_mono_hormones():
+	horms = Monophasic_Hormones.query.order_by(Monophasic_Hormones.id).all()
+	return jsonify({'data': [Monophasic_Hormones.serialize(horm) for horm in horms]})
+
+@app.route('/hormones/progestin', methods=['GET'])
+def get_prog_hormones():
+	horms = Progestin_Hormones.query.order_by(Progestin_Hormones.id).all()
+	return jsonify({'data': [Progestin_Hormones.serialize(horm) for horm in horms]})
+

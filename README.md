@@ -23,3 +23,22 @@ $ export SECRET_KEY='code generated above'
 ```bash
 (venv)$ flask run
 ```
+
+## Routes
+
+- /users/all
+- /users/:id
+- /users/non_hormonal
+- /users/triphasic
+- /users/monophasic
+- /users/progestin
+- /users/register
+
+- /auth/login
+- /auth/status
+- /auth/logout
+
+- /hormones/non_hormonal
+- /hormones/triphasic
+- /hormones/monophasic
+- /hormones/progestin
