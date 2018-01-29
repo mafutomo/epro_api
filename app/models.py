@@ -97,68 +97,84 @@ class Non_Hormonal_Hormones(db.Model):
     __tablename__ = "non_hormonal_hormones"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    day = db.Column(db.Integer, nullable=False)
     est = db.Column(db.Integer, nullable=False)
     prog = db.Column(db.Integer, nullable=False)
 
+
     def __init__(self, est, prog):
+        self.day = day
         self.est = est
         self.prog = prog
 
     def serialize(self):
         return {
             'est': self.est,
-            'prog': self.prog
+            'prog': self.prog,
+            'day': self.day
         }
 
 class Triphasic_Hormones(db.Model):
     __tablename__ = "triphasic_hormones"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    day = db.Column(db.Integer, nullable=False)
     est = db.Column(db.Integer, nullable=False)
     prog = db.Column(db.Integer, nullable=False)
 
+
     def __init__(self, est, prog):
+        self.day = day
         self.est = est
         self.prog = prog
 
     def serialize(self):
         return {
             'est': self.est,
-            'prog': self.prog
+            'prog': self.prog,
+            'day': self.day
         }
 
 class Monophasic_Hormones(db.Model):
     __tablename__ = "monophasic_hormones"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    day = db.Column(db.Integer, nullable=False)
     est = db.Column(db.Integer, nullable=False)
     prog = db.Column(db.Integer, nullable=False)
 
+
     def __init__(self, est, prog):
+        self.day = day
         self.est = est
         self.prog = prog
 
     def serialize(self):
         return {
             'est': self.est,
-            'prog': self.prog
+            'prog': self.prog,
+            'day': self.day
         }
 
 class Progestin_Hormones(db.Model):
     __tablename__ = "progestin_hormones"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    day = db.Column(db.Integer, nullable=False)
     est = db.Column(db.Integer, nullable=False)
     prog = db.Column(db.Integer, nullable=False)
 
+
     def __init__(self, est, prog):
+        self.day = day
         self.est = est
         self.prog = prog
 
     def serialize(self):
         return {
             'est': self.est,
-            'prog': self.prog
+            'prog': self.prog,
+            'day': self.day
         }
 
 class BlacklistToken(db.Model):
