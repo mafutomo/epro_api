@@ -102,7 +102,7 @@ class Non_Hormonal_Hormones(db.Model):
     prog = db.Column(db.Integer, nullable=False)
 
 
-    def __init__(self, est, prog):
+    def __init__(self, day, est, prog):
         self.day = day
         self.est = est
         self.prog = prog
@@ -123,7 +123,7 @@ class Triphasic_Hormones(db.Model):
     prog = db.Column(db.Integer, nullable=False)
 
 
-    def __init__(self, est, prog):
+    def __init__(self, day, est, prog):
         self.day = day
         self.est = est
         self.prog = prog
@@ -144,7 +144,7 @@ class Monophasic_Hormones(db.Model):
     prog = db.Column(db.Integer, nullable=False)
 
 
-    def __init__(self, est, prog):
+    def __init__(self, day, est, prog):
         self.day = day
         self.est = est
         self.prog = prog
@@ -165,7 +165,7 @@ class Progestin_Hormones(db.Model):
     prog = db.Column(db.Integer, nullable=False)
 
 
-    def __init__(self, est, prog):
+    def __init__(self, day, est, prog):
         self.day = day
         self.est = est
         self.prog = prog
