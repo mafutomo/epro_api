@@ -1,7 +1,6 @@
 from flask import request, make_response, jsonify, abort
 from app.models import Users, Tips, Non_Hormonal_Hormones, Triphasic_Hormones, Monophasic_Hormones, BlacklistToken
 from app import app, db, bcrypt
-from flask_cors import CORS, cross_origin
 
 @app.route('/')
 def index():
@@ -42,9 +41,10 @@ def get_prog():
 	return jsonify({'data': [Users.serialize(user) for user in users]})
 
 @app.route('/users/register', methods=['POST'])
-@cross_origin()
 def register():
 	post_data = request.get_json()
+	email = post_data.get('email')
+	password = post_data.get('password')
 
 	if email is None or password is None:
 		responseObject = {
