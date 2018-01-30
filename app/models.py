@@ -172,9 +172,9 @@ class Progestin_Hormones(db.Model):
 
     def serialize(self):
         return {
+            'day': self.day,
             'est': self.est,
-            'prog': self.prog,
-            'day': self.day
+            'prog': self.prog
         }
 
 class BlacklistToken(db.Model):
