@@ -1,7 +1,7 @@
 from flask import request, make_response, jsonify, abort
 from app.models import Users, Tips, Non_Hormonal_Hormones, Triphasic_Hormones, Monophasic_Hormones, BlacklistToken
 from app import app, db, bcrypt
-
+from flask_cors import CORS, cross_origin
 
 @app.route('/')
 def index():
@@ -42,6 +42,7 @@ def get_prog():
 	return jsonify({'data': [Users.serialize(user) for user in users]})
 
 @app.route('/users/register', methods=['POST'])
+@cross_origin()
 def register():
 	post_data = request.get_json()
 
@@ -187,13 +188,3 @@ def get_mono_hormones():
 def get_prog_hormones():
 	horms = Progestin_Hormones.query.order_by(Progestin_Hormones.id).all()
 	return jsonify({'data': [Progestin_Hormones.serialize(horm) for horm in horms]})
-
-@app.after_request
-def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    if request.method == 'OPTIONS':
-        response.headers['Access-Control-Allow-Methods'] = 'DELETE, GET, POST, PUT'
-        headers = request.headers.get('Access-Control-Request-Headers')
-        if headers:
-            response.headers['Access-Control-Allow-Headers'] = headers
-    return response
