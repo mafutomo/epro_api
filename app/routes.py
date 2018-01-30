@@ -188,3 +188,12 @@ def get_prog_hormones():
 	horms = Progestin_Hormones.query.order_by(Progestin_Hormones.id).all()
 	return jsonify({'data': [Progestin_Hormones.serialize(horm) for horm in horms]})
 
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    if request.method == 'OPTIONS':
+        response.headers['Access-Control-Allow-Methods'] = 'DELETE, GET, POST, PUT'
+        headers = request.headers.get('Access-Control-Request-Headers')
+        if headers:
+            response.headers['Access-Control-Allow-Headers'] = headers
+    return response
