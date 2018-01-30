@@ -1,5 +1,5 @@
 from flask import request, make_response, jsonify, abort
-from app.models import Users, Tips, Non_Hormonal_Hormones, Triphasic_Hormones, Monophasic_Hormones, BlacklistToken
+from app.models import Users, Tips, Non_Hormonal_Hormones, Triphasic_Hormones, Monophasic_Hormones, Progestin_Hormones, BlacklistToken
 from app import app, db, bcrypt
 
 @app.route('/')
