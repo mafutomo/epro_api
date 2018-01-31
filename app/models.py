@@ -87,8 +87,8 @@ class Tips(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     category = db.Column(db.String(255), nullable=False)
-    exercise_decription = db.Column(db.String(255), nullable=False)
-    nutrition_info = db.Column(db.String(255), nullable=False)
+    exercise_decription = db.Column(db.Text, nullable=False)
+    nutrition_info = db.Column(db.Text, nullable=False)
 
     def __init__(self, category, exercise_decription, nutrition_info):
         self.category = category
