@@ -87,18 +87,18 @@ class Tips(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     category = db.Column(db.String(255), nullable=False)
-    exercise_decription = db.Column(db.Text, nullable=False)
+    exercise_description = db.Column(db.Text, nullable=False)
     nutrition_info = db.Column(db.Text, nullable=False)
 
-    def __init__(self, category, exercise_decription, nutrition_info):
+    def __init__(self, category, exercise_description, nutrition_info):
         self.category = category
-        self.exercise_decription = exercise_decription
+        self.exercise_description = exercise_description
         self.nutrition_info = nutrition_info
 
     def serialize(self):
         return {
             'category': self.category,
-            'exercise_decription': self.exercise_decription,
+            'exercise_description': self.exercise_description,
             'nutrition_info': self.nutrition_info
         }
 
