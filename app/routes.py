@@ -176,7 +176,7 @@ def get_tips():
 	return jsonify({'data': [Tips.serialize(tip) for tip in tips]})
 
 @app.route('/tips/<int:id>', methods=['GET'])
-def get_user(id):
+def get_tip(id):
 	tip = Tips.query.get(id)
 	if not tip:
 		abort(400)
