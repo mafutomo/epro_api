@@ -125,6 +125,8 @@ def get_auth():
 				'status': 'success',
 				'data': {
 					'user_id': user.id,
+					'first_name': user.first_name,
+					'last_name': user.last_name,
 					'email': user.email,
 					'registered_on': user.registered_on
 				}

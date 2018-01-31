@@ -37,6 +37,7 @@ class Users(db.Model):
 
     def serialize(self):
         return {
+            'id': self.id,
             'first_name': self.first_name,
             'last_name': self.last_name,
             'email': self.email,
@@ -47,7 +48,8 @@ class Users(db.Model):
             'non_hormonal': self.non_hormonal,
             'triphasic': self.triphasic,
             'monophasic': self.monophasic,
-            'progestin': self.progestin
+            'progestin': self.progestin,
+            'registered_on': self.registered_on
         }
 
     def encode_auth_token(self, user_id):
@@ -109,9 +111,9 @@ class Non_Hormonal_Hormones(db.Model):
 
     def serialize(self):
         return {
+            'day': self.day,
             'est': self.est,
-            'prog': self.prog,
-            'day': self.day
+            'prog': self.prog
         }
 
 class Triphasic_Hormones(db.Model):
