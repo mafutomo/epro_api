@@ -168,12 +168,25 @@ def logout():
 		}
 		return jsonify(responseObject), 403
 
+# EXERCISE TIPS ROUTES
+
+@app.route('/tips/all', methods=['GET'])
+def get_tips():
+	tips = Tips.query.order_by(Tips.id).all()
+	return jsonify({'data': [Tips.serialize(tip) for tip in tips]})
+
+@app.route('/tips/<int:id>', methods=['GET'])
+def get_user(id):
+	tip = Tips.query.get(id)
+	if not tip:
+		abort(400)
+	return jsonify(Tips.serialize(tip))
+
 # HORMONE DATA ROUTES
 
 @app.route('/hormones/non_hormonal', methods=['GET'])
 def get_non_hormonal():
-	horms = Non_Hormonal_Hormones.query.order_by(Non_Hormonal_Hormones.id).all()
-	
+	horms = Non_Hormonal_Hormones.query.order_by(Non_Hormonal_Hormones.id).all()	
 	return jsonify({'data': [Non_Hormonal_Hormones.serialize(horm) for horm in horms]})
 
 @app.route('/hormones/triphasic', methods=['GET'])

@@ -95,6 +95,13 @@ class Tips(db.Model):
         self.exercise_decription = exercise_decription
         self.nutrition_info = nutrition_info
 
+    def serialize(self):
+        return {
+            'category': self.category,
+            'exercise_decription': self.exercise_decription,
+            'nutrition_info': self.nutrition_info
+        }
+
 class Non_Hormonal_Hormones(db.Model):
     __tablename__ = "non_hormonal_hormones"
 
